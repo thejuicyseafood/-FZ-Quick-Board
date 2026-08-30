@@ -1,9 +1,31 @@
 {
+  "id": "/-FZ-Quick-Board/",
   "name": "Fred Zhang Quick Board",
   "short_name": "FZ Quick Board",
-  "start_url": "./",
+  "description": "Fred Zhang Quick Board R3I",
+  "start_url": "/-FZ-Quick-Board/?pwa=1",
+  "scope": "/-FZ-Quick-Board/",
   "display": "standalone",
-  "background_color": "#071522",
-  "theme_color": "#071522",
-  "orientation": "landscape"
+  "display_override": [
+    "fullscreen",
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "landscape",
+  "background_color": "#07111c",
+  "theme_color": "#07111c",
+  "icons": [
+    {
+      "src": "/-FZ-Quick-Board/icon-192.png?v=2",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/-FZ-Quick-Board/icon-512.png?v=2",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
 }

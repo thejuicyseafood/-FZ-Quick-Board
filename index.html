@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="application-name" content="FZ Quick Board">
 <meta name="apple-mobile-web-app-title" content="FZ Quick Board">
-<link rel="manifest" href="./manifest.webmanifest">
+<link rel="manifest" href="./manifest.webmanifest?v=2" crossorigin="use-credentials">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="apple-touch-icon" href="./icon-192.png">
 
@@ -11775,15 +11775,34 @@ window.addEventListener('load',()=>setTimeout(initScheduledCuts,1200));
 /* ===== END R3I SCHEDULED SHIFT CUT AUTOMATION ===== */
 </script>
 
+
+
+
 <script>
 (function(){
-  if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
-    window.addEventListener('load', function(){
-      navigator.serviceWorker.register('./sw.js', {scope:'./'}).catch(function(err){
-        console.warn('PWA service worker registration failed:', err);
-      });
+  window.__FZ_PWA_VERSION__ = 'R3I-PWA-FIX-2';
+
+  // Clean obsolete service-worker caches from earlier web/iPad experiments.
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', async function(){
+      try {
+        const reg = await navigator.serviceWorker.register('./sw.js?v=2', {scope:'./', updateViaCache:'none'});
+        await reg.update();
+      } catch(e) { console.warn('FZ PWA SW:', e); }
     });
   }
+
+  // If Chrome exposes its native install prompt, keep it available.
+  let deferredInstallPrompt = null;
+  window.addEventListener('beforeinstallprompt', function(e){
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    document.documentElement.dataset.pwaInstallable = 'yes';
+  });
+  window.addEventListener('appinstalled', function(){
+    document.documentElement.dataset.pwaInstalled = 'yes';
+    deferredInstallPrompt = null;
+  });
 })();
 </script>
 
