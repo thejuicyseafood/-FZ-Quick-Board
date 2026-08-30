@@ -1,6 +1,17 @@
 <!doctype html>
 <html>
 <head>
+
+<meta name="theme-color" content="#07111c">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="application-name" content="FZ Quick Board">
+<meta name="apple-mobile-web-app-title" content="FZ Quick Board">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./icon-192.png">
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>Fred Zhang Quick Board V2 • Simple, Flexible, Safe</title>
@@ -11763,6 +11774,19 @@ function initScheduledCuts(){if($('scheduledCutClose'))$('scheduledCutClose').on
 window.addEventListener('load',()=>setTimeout(initScheduledCuts,1200));
 /* ===== END R3I SCHEDULED SHIFT CUT AUTOMATION ===== */
 </script>
+
+<script>
+(function(){
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('./sw.js', {scope:'./'}).catch(function(err){
+        console.warn('PWA service worker registration failed:', err);
+      });
+    });
+  }
+})();
+</script>
+
 </body>
 </html>
 <style>
